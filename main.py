@@ -8,10 +8,10 @@ def instruction_int_conversion(string_instruction):
 
 # Converte o inteiro em binário de 32 bits
 def int_binary_conversion(int_value):
-    # binary_value = '{:032b}'.format(int_value)
-    binary_value = bin(int_value)
+    binary_value = '{:032b}'.format(int_value)
+    # binary_value = bin(int_value)
     print(binary_value)
-    print(type(binary_value))
+    # print(type(binary_value))
     return binary_value
 
 # Lê um arquivo dado como parâmetro
@@ -39,6 +39,16 @@ def store_in_memory_instruction():
 
     print(memory_instruction)
     return memory_instruction
+
+def interface():
+    print("Selecione uma das opções: ")
+    print("Carga do Arquivo: ")
+    print("Entrada via Teclado: ")
+    print("Início da Execução: ")
+    print("Reset: ")
+
+
+
 
 
 
