@@ -1,4 +1,12 @@
 import PySimpleGUI as sg
+import instructions_memory
+
+# Funções de Execução Direta e Passo-a-Passo
+def direct_execution(inst_memory):
+    inst_memory.read_instruction_memory()
+
+def step_by_step_execution():
+    pass
 
 sg.theme('Reddit')
 
@@ -20,10 +28,24 @@ while True:
 
     if event != sg.WIN_CLOSED and event != "Sair":
         try:
-            output = values['-ENTER-']
+            # Inicializações
+            window['-OUTPUT-'].update('')
+            clock_cycle = 0
+            inst_memory = instructions_memory.Instruction_Memory()
+
+            if event == "Execução Direta":
+                if values['-ENTERTYPE-'] == "Arquivo":
+                    file = values['-FILE-']
+                    inst_memory.store_in_memory_instruction(file, 0)
+                    inst_memory.read_instruction_memory()
+                
+                if values['-ENTERTYPE-'] == "Via Teclado":
+                    instructions = values["-ENTER-"].split()
+                    inst_memory.store_in_memory_instruction(0, instructions)
+                    inst_memory.read_instruction_memory()
         except:
             output = 'Invalid'
 
-        window['-OUTPUT-'].update(output)
     else:
         break
+
