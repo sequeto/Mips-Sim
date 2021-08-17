@@ -44,6 +44,15 @@ class Instruction_Memory:
             print("PC: ", self.pc *4)
             print("Instrução:", instruction)
             self.pc += 1
+    
+    def get_instruction(self, index):
+        return self.Instruction_Memory[index]
+    
+    def get_pc(self):
+        return self.pc
+    
+    def get_instruction_memory_length(self):
+        return len(self.instruction_memory)
 
 
 # # Lê um arquivo dado como parâmetro
