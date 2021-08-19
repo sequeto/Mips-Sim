@@ -3,7 +3,7 @@ class Register:
         self.binaryCode = binaryCode
         self.decimalCode = decimalCode
         self.assemblyCode = assemblyCode
-        self.value = -1
+        self.value = "00000000000000000000000000000000"
     
     def setValue(self, value):
         self.value = value

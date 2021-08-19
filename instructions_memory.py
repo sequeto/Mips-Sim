@@ -22,8 +22,7 @@ class Instruction_Memory:
                 print("Memória de Instruções Cheia")
                 break
             else:
-                int_instruction = functions.instruction_int_conversion(instruction)
-                self.instruction_memory.append(int_instruction)
+                self.instruction_memory.append(instruction)
                 counter = counter + 1
         
     # mostra a memoria de instruções
