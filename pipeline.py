@@ -4,6 +4,7 @@ import registerBase
 import control
 import ALUControl
 import dataMemory
+import ALU
 
 
 def main_loop(file, instructions):
@@ -22,6 +23,7 @@ def main_loop(file, instructions):
     main_control = control.Main_Control() # Instanciando controle principal
     register_base = registerBase.Register_Base() # Instanciando Banco de Registradores
     alucontrol = ALUControl.ALUControl() # Instanciando controle da ALU
+    alu = ALU.ALU()
     # data_memory = dataMemory.Data_Memory() # Instanciando Memória de Dados
 
 
@@ -49,9 +51,12 @@ def main_loop(file, instructions):
         output_alucontrol = alucontrol.get_op()
 
         # ---------------------------------------------- Execution / EXE -------------------------------------------------------
+        muxAlu = registerOutput['readData2'] if control_signs['ALUSrc'] == 0 else 0 # Multiplexador para definir origem da ALU (colocar Sinal extendido do Address)
+        alu_output = alu.get_output(output_alucontrol, registerOutput['readData1'], muxAlu)
+
+        # ---------------------------------------------- Memory Access / MEM -------------------------------------------------------
 
         
-
 
 
 

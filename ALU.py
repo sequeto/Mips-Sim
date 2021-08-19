@@ -7,5 +7,42 @@ class ALU:
         self.result = -1
     
 
-    def get_output(self, opcode, ReadData1, ReadData2):
-        pass
+    def get_output(self, ALUoperation, ReadData1, ReadData2):
+        value1 = functions.instruction_int_conversion(ReadData1)
+        value2 = functions.instruction_int_conversion(ReadData2)
+        print(ALUoperation)
+
+        if(ALUoperation == "0000"):
+            pass
+
+        elif(ALUoperation == "0001"):
+            pass
+
+        elif(ALUoperation == "0010"):
+            self.result = value1 + value2
+
+        elif(ALUoperation == "0110"):
+            self.result = value1 - value2
+
+        elif(ALUoperation == "0111"):
+            if value1 < value2:
+                self.result = 1
+            else:
+                self.result = 0
+
+        elif(ALUoperation == "1100"):
+            pass
+        print(self.result)
+
+        if self.result == 0:
+            self.zero = 1
+        else:
+            self.zero = 0
+
+        self.result = functions.int_binary_conversion(self.result)
+
+        return self.result
+        
+
+        def get_zero(self):
+            return self.zero
