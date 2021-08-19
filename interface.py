@@ -15,7 +15,7 @@ layout = [
     [sg.Text('Digite as Instruções (Caso opção de entrada seja: Via Teclado): ')], 
     [sg.Multiline(key= '-ENTER-')],
     [sg.Txt('Saída:')],
-    [sg.Output(size=(83,20),key='-OUTPUT-')],
+    [sg.Output(size=(100,20),key='-OUTPUT-')],
     [sg.Button('Execução Direta'), sg.Button('Execução Passo-a-Passo'), sg.Button('Sair')]
 ]
 
