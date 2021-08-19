@@ -53,6 +53,7 @@ class Register_Base:
     def writeRegister(self, index, value):
         register = self.registerBase[index]
         register.setValue(value)
+        print("Valor Escrito:", register.getValue())
 
 
     def get_output(self, register1, register2, writeRegister, writeData, RegWrite, clock):
@@ -63,7 +64,7 @@ class Register_Base:
         index3 = functions.instruction_int_conversion(writeRegister)
 
         if(RegWrite == 1 and clock == 1):
-            writeRegister(index3, writeData)
+            self.writeRegister(index3, writeData)
         
         # Cria saída
         output = {

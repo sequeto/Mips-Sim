@@ -10,7 +10,6 @@ class ALU:
     def get_output(self, ALUoperation, ReadData1, ReadData2):
         value1 = functions.instruction_int_conversion(ReadData1)
         value2 = functions.instruction_int_conversion(ReadData2)
-        print(ALUoperation)
 
         if(ALUoperation == "0000"):
             pass
@@ -32,7 +31,6 @@ class ALU:
 
         elif(ALUoperation == "1100"):
             pass
-        print(self.result)
 
         if self.result == 0:
             self.zero = 1
