@@ -1,9 +1,11 @@
+import functions
+
 class Register:
     def __init__(self, binaryCode, decimalCode, assemblyCode):
         self.binaryCode = binaryCode
         self.decimalCode = decimalCode
         self.assemblyCode = assemblyCode
-        self.value = "00000000000000000000000000000000"
+        self.value = functions.int_binary_conversion(int(decimalCode))
     
     def setValue(self, value):
         self.value = value

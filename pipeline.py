@@ -20,8 +20,8 @@ def main_loop(file, instructions):
         inst_memory.store_in_memory_instruction(file, 0)
 
     main_control = control.Main_Control() # Instanciando controle principal
-    # alucontrol = ALUControl.ALUControl() # Instanciando controle da ALU
-    # register_base = registerBase.Register_Base() # Instanciando Banco de Registradores
+    register_base = registerBase.Register_Base() # Instanciando Banco de Registradores
+    alucontrol = ALUControl.ALUControl() # Instanciando controle da ALU
     # data_memory = dataMemory.Data_Memory() # Instanciando Memória de Dados
 
 
@@ -40,9 +40,18 @@ def main_loop(file, instructions):
 
         # ---------------------------------------------- Instruction Decode / ID -------------------------------------------------------
         fields = functions.divider(instruction) # Divide a instrução de acordo com o tipo de instrução
-        print(fields)
-        control_signs = main_control.get_output(fields['op']) # Passa o Campo OP para o Controle Principal
-        print(control_signs)
+        control_signs = main_control.get_output(fields['op']) # Gerando sinais de controle
+        
+        muxReg = fields['rd'] if control_signs['RegDist'] == 1 else fields['rt'] # Multiplexador para definir registrador de escrita
+        registerOutput = register_base.get_output(fields['rs'], fields['rt'], muxReg, 0, control_signs['RegWrite'], 0) # Entrada do Ranco de Registradores
+
+        alucontrol.set_opalu(fields['funct'], control_signs['ALUOp']) # Gerando sinal da ALU
+        output_alucontrol = alucontrol.get_op()
+
+        # ---------------------------------------------- Execution / EXE -------------------------------------------------------
+
+        
+
 
 
 

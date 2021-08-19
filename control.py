@@ -10,7 +10,7 @@ class Main_Control:
             'MemRead': -1,
             'MemWrite': -1,
             'Branch': -1,
-            'ALUOp': -1,
+            'ALUOp': -1
         }
     
     def get_output(self, opcode):

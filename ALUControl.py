@@ -23,6 +23,9 @@ class ALUControl:
             formatted_funct = funct[2:6]
             if(formatted_funct == "0010"):
                 self.op = "0110"
+
+            elif(formatted_funct == "0000"):
+                self.op = "0010"
             
             elif(formatted_funct == "0100"):
                 self.op = "0000"

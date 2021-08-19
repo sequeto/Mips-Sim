@@ -49,24 +49,29 @@ class Register_Base:
 
         self.registerBase.append(register.Register("11111", "31", "$k1"))
 
-    def writeRegister(self, writeRegister, value):
-        # converter binario dos registros
-        index1 = functions.instruction_int_conversion(writeRegister)
-        register = self.registerBase[index1]
+    # Realiza Escrita do registrador
+    def writeRegister(self, index, value):
+        register = self.registerBase[index]
         register.setValue(value)
 
 
-    def get_output(self, register1, register2, writeRegister, writeData, RegWrite):
+    def get_output(self, register1, register2, writeRegister, writeData, RegWrite, clock):
 
         # converter binario dos registros
         index1 = functions.instruction_int_conversion(register1)
         index2 = functions.instruction_int_conversion(register2)
+        index3 = functions.instruction_int_conversion(writeRegister)
 
-        output = []
-
+        if(RegWrite == 1 and clock == 1):
+            writeRegister(index3, writeData)
+        
         # Cria saída
-        output.append(self.registerBase[index1].getValue())
-        output.append(self.registerBase[index2].getValue())
+        output = {
+            "readData1":-1,
+            "readData2":-1
+        }
+        output['readData1'] = self.registerBase[index1].getValue()
+        output['readData2'] = self.registerBase[index2].getValue()
 
         return output
 
