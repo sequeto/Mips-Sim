@@ -23,6 +23,7 @@ def main_loop(file, instructions):
     # inicializando variáveis
     clock_cycle = 0
     pc = 0 # Program Counter
+    arquivo = open("report.txt", "w", encoding='utf-8') # Arquivo para Salvar dados
 
     #Instanciando Memória de Instruções de acordo com o tipo de entrada
     inst_memory = instructions_memory.Instruction_Memory()
@@ -52,6 +53,16 @@ def main_loop(file, instructions):
         print('Ciclo de Clock: ', clock_cycle)
         print("PC: ", functions.int_binary_conversion(pc))
         print("Instrução: ", instruction)
+
+        arquivo.write("Ciclo de Clock: ")
+        arquivo.write(str(clock_cycle))
+        arquivo.write('\n')
+        arquivo.write("Program Counter: ")
+        arquivo.write(functions.int_binary_conversion(pc))
+        arquivo.write('\n')
+        arquivo.write("Instrução: ")
+        arquivo.write(instruction)
+        arquivo.write('\n')
         pc += 4
         # ---------------------------------------------- Instruction Decode / ID -------------------------------------------------------
 
@@ -93,6 +104,30 @@ def main_loop(file, instructions):
             # ---------------------------------------------------------------------------------------------------------------------------
 
         print("Banco de Registradores")
+        arquivo.write("Sinais de Controle:")
+        arquivo.write('ALUOp :')
+        arquivo.write(control_signs['ALUOp'])
+        arquivo.write('\n')
+
+        arquivo.write("Banco de Registradores:")
+        arquivo.write('\n')
+        registers_write = register_base.get_register_base()
+        for position in registers_write:
+            arquivo.write(position.getAssemblyCode())
+            arquivo.write(': ')
+            arquivo.write(position.getValue())
+            arquivo.write('\n')
+
+        arquivo.write("Memória de Dados:")
+        arquivo.write('\n')
+        data_memory_write = data_memory.get_data_memory()
+        for position in data_memory_write:
+            arquivo.write(position)
+            arquivo.write('\n')
+        
+        arquivo.write('\n')
+        
+
         register_base.show_register_base()
         count = count + 1 # Incrementando Loop
     print("\nPipeline Finalizado")

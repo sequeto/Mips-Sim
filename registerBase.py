@@ -57,6 +57,9 @@ class Register_Base:
             print("Valor: ", self.registerBase[count].getValue())
             count = count + 1
     
+    def get_register_base(self):
+        return self.registerBase
+    
     def reset(self):
         count = 0
         while count < 32:

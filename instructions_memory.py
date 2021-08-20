@@ -18,7 +18,7 @@ class Instruction_Memory:
             binary_instructions = functions.read_file(file_name)
 
         for instruction in binary_instructions:
-            if counter > 127:
+            if counter > 128:
                 print("Memória de Instruções Cheia")
                 break
             else:
