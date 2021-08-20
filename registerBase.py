@@ -48,12 +48,25 @@ class Register_Base:
         self.registerBase.append(register.Register("11110", "30", "$k1"))
 
         self.registerBase.append(register.Register("11111", "31", "$k1"))
+    
+
+    def show_register_base(self):
+        count = 0
+        while count < 32:
+            print("Registrador: ", self.registerBase[count].getAssemblyCode())
+            print("Valor: ", self.registerBase[count].getValue())
+            count = count + 1
+    
+    def reset(self):
+        count = 0
+        while count < 32:
+            self.registerBase[count].setValue("00000000000000000000000000000000")
+            count = count + 1
 
     # Realiza Escrita do registrador
     def writeRegister(self, index, value):
         register = self.registerBase[index]
         register.setValue(value)
-        print("Valor Escrito:", register.getValue())
 
 
     def get_output(self, register1, register2, writeRegister, writeData, RegWrite, clock):
@@ -71,6 +84,7 @@ class Register_Base:
             "readData1":-1,
             "readData2":-1
         }
+
         output['readData1'] = self.registerBase[index1].getValue()
         output['readData2'] = self.registerBase[index2].getValue()
 

@@ -12,10 +12,32 @@ class ALU:
         value2 = functions.instruction_int_conversion(ReadData2)
 
         if(ALUoperation == "0000"):
-            pass
-
+            count = 0
+            binary_data1 = functions.int_binary_conversion(ReadData1)
+            binary_data2 = functions.int_binary_conversion(ReadData2)
+            result_aux = ''
+            while count < 32:
+                if binary_data1[count] == 1 and binary_data2[count] == 1:
+                    result_aux = result_aux + 1
+                else:
+                    result_aux = result_aux + 0
+                count = count + 1
+            
+            self.result = result_aux
+                
         elif(ALUoperation == "0001"):
-            pass
+            count = 0
+            binary_data1 = functions.int_binary_conversion(ReadData1)
+            binary_data2 = functions.int_binary_conversion(ReadData2)
+            result_aux = ''
+            while count < 32:
+                if binary_data1[count] == 1 or binary_data2[count] == 1:
+                    result_aux = result_aux + 1
+                else:
+                    result_aux = result_aux + 0
+                count = count + 1
+            
+            self.result = result_aux
 
         elif(ALUoperation == "0010"):
             self.result = value1 + value2
