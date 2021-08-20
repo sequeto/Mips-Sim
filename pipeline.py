@@ -48,6 +48,11 @@ def main_loop(file, instructions):
 
         instruction = inst_memory.get_instruction(pc)
         clock_cycle += 1
+
+        print('Ciclo de Clock: ', clock_cycle)
+        print("PC: ", functions.int_binary_conversion(pc))
+        print("Instrução: ", instruction)
+        pc += 4
         # ---------------------------------------------- Instruction Decode / ID -------------------------------------------------------
 
         fields = functions.divider(instruction) # Divide a instrução de acordo com o tipo de instrução
@@ -65,29 +70,29 @@ def main_loop(file, instructions):
         output_alucontrol = alucontrol.get_op()
 
         # ---------------------------------------------- Execution / EXE ----------------------------------------------------------
-
         muxAlu = registerOutput['readData2'] if control_signs['ALUSrc'] == 0 else sign_extended # Multiplexador para definir origem da ALU
         alu_output = alu.get_output(output_alucontrol, registerOutput['readData1'], muxAlu)
 
-        # ---------------------------------------------- Memory Access / MEM -------------------------------------------------------
-        data_memory_output = -1
-        if(control_signs['MemWrite'] == 1 or control_signs['MemRead'] == 1):
-            data_memory_output = data_memory.get_output(alu_output, registerOutput['readData2'], control_signs['MemWrite'], control_signs['MemRead'])
-        # ---------------------------------------------- Escrita / WB --------------------------------------------------------------
+        # Realiza Salto
+        if control_signs['Branch'] == 1:
+            if alu.get_zero() == 1:
+                jump = functions.instruction_int_conversion(fields['address'])
+                pc = pc + jump
+        else:
+            # ---------------------------------------------- Memory Access / MEM -------------------------------------------------------
+            data_memory_output = -1
+            if(control_signs['MemWrite'] == 1 or control_signs['MemRead'] == 1):
+                data_memory_output = data_memory.get_output(alu_output, registerOutput['readData2'], control_signs['MemWrite'], control_signs['MemRead'])
+            # ---------------------------------------------- Escrita / WB --------------------------------------------------------------
 
-        if(control_signs['Branch'] == 0 and control_signs['RegWrite'] == 1):
-            # muxWb = data_memory_output if control_signs['MemtoReg'] == 1 else alu_output
-            muxWb = alu_output
-            registerOutput = register_base.get_output(fields['rs'], fields['rt'], muxReg, muxWb, control_signs['RegWrite'], 1) # Escrevendo no Banco de Registradores
-        
-        # ---------------------------------------------------------------------------------------------------------------------------
+            if(control_signs['Branch'] == 0 and control_signs['RegWrite'] == 1):
+                # muxWb = data_memory_output if control_signs['MemtoReg'] == 1 else alu_output
+                muxWb = alu_output
+                registerOutput = register_base.get_output(fields['rs'], fields['rt'], muxReg, muxWb, control_signs['RegWrite'], 1) # Escrevendo no Banco de Registradores
+            
+            # ---------------------------------------------------------------------------------------------------------------------------
 
-        print('Ciclo de Clock: ', clock_cycle)
-        print("PC: ", functions.int_binary_conversion(pc))
-        print("Instrução: ", instruction)
         print("Banco de Registradores")
         register_base.show_register_base()
-        pc += 4
-
         count = count + 1 # Incrementando Loop
     print("\nPipeline Finalizado")

@@ -64,5 +64,5 @@ class ALU:
         return self.result
         
 
-        def get_zero(self):
-            return self.zero
+    def get_zero(self):
+        return self.zero
